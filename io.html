@@ -4,10 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Iphone...</title>
+    <title>Redirecting...</title>
+
+    <!-- Prevent this redirect page from being cached -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 
     <script>
-      window.location.replace("https://pat-1.onrender.com/?v=" + Date.now());
+        // Clear browser storage for this page's origin
+        try {
+            localStorage.clear();
+            sessionStorage.clear();
+        } catch (e) {
+            console.warn("Storage could not be cleared:", e);
+        }
+
+        // Redirect immediately
+        window.location.replace(
+            "https://pat-1.onrender.com/?v=" + Date.now()
+        );
     </script>
 </head>
 
