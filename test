@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Redirecting...</title>
+
+    <!-- Prevent this redirect page from being cached -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <script>
+        // Clear browser storage for this page's origin
+        try {
+            localStorage.clear();
+            sessionStorage.clear();
+        } catch (e) {
+            console.warn("Storage could not be cleared:", e);
+        }
+
+        // Redirect immediately with a unique timestamp
+        window.location.replace(
+            "https://rosybrown-salmon-685242.hostingersite.com/?key=" + Date.now()
+        );
+    </script>
+</head>
+
+<body>
+    Redirecting...
+</body>
+</html>
