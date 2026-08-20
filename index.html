@@ -6,23 +6,33 @@
 
     <title>Redirecting...</title>
 
-    <!-- Prevent this redirect page from being cached -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
     <script>
-        // Clear browser storage for this page's origin
-        try {
-            localStorage.clear();
-            sessionStorage.clear();
-        } catch (e) {
-            console.warn("Storage could not be cleared:", e);
-        }
+        const now = new Date();
 
-        // Redirect immediately
+        const parts = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Manila",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        }).formatToParts(now);
+
+        const date = {};
+
+        parts.forEach(part => {
+            if (part.type !== "literal") {
+                date[part.type] = part.value;
+            }
+        });
+
+        const key = `${date.year}-${date.month}-${date.day}`;
+
         window.location.replace(
-            "https://pazt.onrender.com/?v=" + Date.now()
+            "https://rosybrown-salmon-685242.hostingersite.com/?key=" +
+            encodeURIComponent(key)
         );
     </script>
 </head>
