@@ -5,12 +5,16 @@
       "priority": 1
     },
     {
-      "url": "https://saddlebrown-gnu-658159.hostingersite.com/",
+      "url": "https://clientserver.shop/",
       "priority": 2
     },
     {
-      "url": "https://midnightblue-herring-134619.hostingersite.com/",
+      "url": "https://saddlebrown-gnu-658159.hostingersite.com/",
       "priority": 3
+    },
+    {
+      "url": "https://midnightblue-herring-134619.hostingersite.com/",
+      "priority": 4
     }
   ]
 }
