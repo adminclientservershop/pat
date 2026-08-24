@@ -1,0 +1,8 @@
+{
+  "servers": [
+    {
+      "url": "https://papi-ver2.online/api/",
+      "priority": 1
+    }
+  ]
+}
