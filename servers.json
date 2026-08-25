@@ -1,7 +1,7 @@
 {
   "servers": [
     {
-      "url": "https://yellowgreen-armadillo-743327.hostingersite.com/",
+      "url": "https://midnightblue-herring-134619.hostingersite.com/",
       "priority": 1
     },
     {
@@ -9,7 +9,7 @@
       "priority": 2
     },
     {
-      "url": "https://midnightblue-herring-134619.hostingersite.com/",
+      "url": "https://yellowgreen-armadillo-743327.hostingersite.com/",
       "priority": 3
     }
   ]
