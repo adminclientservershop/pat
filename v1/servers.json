@@ -3,6 +3,14 @@
     {
       "url": "https://papi-ver2.online/api/",
       "priority": 1
+    },
+    {
+      "url": "https://saddlebrown-gnu-658159.hostingersite.com/api/",
+      "priority": 2
+    },
+    {
+      "url": "https://midnightblue-herring-134619.hostingersite.com/api/",
+      "priority": 3
     }
   ]
 }
