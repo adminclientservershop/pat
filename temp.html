@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iOS...</title>
+
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <script>
+    (function () {
+      // Clear browser storage
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+      } catch (e) {}
+
+      // Get today's date in Manila
+      const manilaDate = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Manila",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).format(new Date());
+
+      // Format as YYYY-MM-DD
+      const key = manilaDate;
+
+      // Current URL
+      const url = new URL(window.location.href);
+
+      // Only redirect if the key is missing or incorrect
+      if (url.searchParams.get("key") !== key) {
+        url.searchParams.set("key", key);
+
+        // Replace URL without creating a browser-history entry
+        window.location.replace(url.toString());
+      }
+    })();
+  </script>
+</head>
+
+<body>
+</body>
+</html>
