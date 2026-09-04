@@ -1,1 +1,578 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<title>Opening PAT Client...</title>
+
+<meta name="robots" content="noindex, nofollow">
+
+<style>
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background: #0b1020;
+    color: #fff;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 430px;
+}
+
+.card {
+    width: 100%;
+
+    padding: 32px 22px 26px;
+
+    text-align: center;
+
+    background: rgba(255,255,255,.07);
+
+    border: 1px solid rgba(255,255,255,.10);
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.logo {
+    width: 82px;
+    height: 82px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3b82f6,
+            #6366f1
+        );
+
+    box-shadow:
+        0 12px 30px rgba(59,130,246,.35);
+
+    font-size: 30px;
+    font-weight: 900;
+}
+
+h1 {
+    margin: 0;
+
+    font-size: 27px;
+    line-height: 1.2;
+}
+
+.subtitle {
+    margin: 12px 0 24px;
+
+    color: #aab3c5;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.spinner {
+    width: 42px;
+    height: 42px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    border:
+        4px solid rgba(255,255,255,.15);
+
+    border-top-color: #3b82f6;
+
+    animation:
+        spin .8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.button {
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 58px;
+
+    margin-top: 20px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 25px rgba(37,99,235,.30);
+}
+
+.notice {
+    display: none;
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.045);
+
+    color: #b8c0d0;
+
+    font-size: 13px;
+    line-height: 1.55;
+
+    text-align: left;
+}
+
+.notice strong {
+    color: white;
+}
+
+.footer {
+    margin-top: 22px;
+
+    color: #69758b;
+
+    font-size: 11px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo">
+            PAT
+        </div>
+
+        <h1 id="title">
+            Opening PAT Client
+        </h1>
+
+        <p class="subtitle" id="subtitle">
+            Please wait...
+        </p>
+
+        <div class="spinner" id="spinner"></div>
+
+        <a
+            id="openBrowser"
+            class="button"
+            href="#"
+        >
+            🌐 Open in Browser
+        </a>
+
+        <div
+            class="notice"
+            id="notice"
+        ></div>
+
+        <div class="footer">
+            PAT Client
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+(function () {
+
+    /*
+     * =========================================
+     * CONFIGURATION
+     * =========================================
+     */
+
+    const TARGET =
+        "https://adminpapi-ver2.github.io/v7/";
+
+    const RANDOM_DIGITS = 8;
+
+
+    /*
+     * =========================================
+     * RANDOM ?v=
+     * =========================================
+     */
+
+    function generateRandom(digits) {
+
+        const min =
+            Math.pow(10, digits - 1);
+
+        const max =
+            Math.pow(10, digits) - 1;
+
+        return Math.floor(
+            min +
+            Math.random() *
+            (max - min + 1)
+        );
+    }
+
+    const random =
+        generateRandom(RANDOM_DIGITS);
+
+    const freshUrl =
+        TARGET + "?v=" + random;
+
+
+    /*
+     * =========================================
+     * USER AGENT
+     * =========================================
+     */
+
+    const ua =
+        navigator.userAgent ||
+        navigator.vendor ||
+        window.opera ||
+        "";
+
+
+    /*
+     * =========================================
+     * DEVICE DETECTION
+     * =========================================
+     */
+
+    const isAndroid =
+        /Android/i.test(ua);
+
+
+    const isIOS =
+        /iPhone|iPad|iPod/i.test(ua) ||
+        (
+            navigator.platform === "MacIntel" &&
+            navigator.maxTouchPoints > 1
+        );
+
+
+    /*
+     * =========================================
+     * IN-APP BROWSER DETECTION
+     * =========================================
+     */
+
+    const isMessenger =
+        /FBAN|FBAV|FB_IAB|Messenger/i.test(ua);
+
+
+    const isFacebook =
+        /FBAN|FBAV|FB_IAB/i.test(ua);
+
+
+    const isInstagram =
+        /Instagram/i.test(ua);
+
+
+    const isInAppBrowser =
+        isMessenger ||
+        isFacebook ||
+        isInstagram;
+
+
+    /*
+     * =========================================
+     * ELEMENTS
+     * =========================================
+     */
+
+    const title =
+        document.getElementById("title");
+
+    const subtitle =
+        document.getElementById("subtitle");
+
+    const spinner =
+        document.getElementById("spinner");
+
+    const button =
+        document.getElementById("openBrowser");
+
+    const notice =
+        document.getElementById("notice");
+
+
+    /*
+     * =========================================
+     * ANDROID + IN-APP BROWSER
+     * =========================================
+     */
+
+    if (isAndroid && isInAppBrowser) {
+
+        title.textContent =
+            "Open in Browser";
+
+        subtitle.textContent =
+            "We're trying to open PAT Client in your browser.";
+
+        notice.innerHTML =
+            "<strong>In-app browser detected</strong><br><br>" +
+            "For the best experience, PAT Client should " +
+            "be opened in Chrome or your default browser." +
+            "<br><br>" +
+            "If nothing happens, tap the " +
+            "<strong>⋮</strong> menu and choose " +
+            "<strong>Open in browser</strong>.";
+
+        notice.style.display =
+            "block";
+
+        button.href =
+            freshUrl;
+
+        button.style.display =
+            "flex";
+
+
+        /*
+         * Android external browser intent
+         */
+
+        const intentUrl =
+            "intent://" +
+            freshUrl.replace(/^https?:\/\//, "") +
+            "#Intent;" +
+            "scheme=https;" +
+            "action=android.intent.action.VIEW;" +
+            "category=android.intent.category.BROWSABLE;" +
+            "end";
+
+
+        setTimeout(function () {
+
+            window.location.href =
+                intentUrl;
+
+        }, 300);
+
+
+        setTimeout(function () {
+
+            spinner.style.display =
+                "none";
+
+        }, 1500);
+
+    }
+
+
+    /*
+     * =========================================
+     * iPHONE / iPAD + IN-APP BROWSER
+     * =========================================
+     */
+
+    else if (isIOS && isInAppBrowser) {
+
+        title.textContent =
+            "Open in Safari";
+
+        subtitle.textContent =
+            "Please open this page in Safari to continue.";
+
+        spinner.style.display =
+            "none";
+
+        notice.innerHTML =
+            "<strong>In-app browser detected</strong><br><br>" +
+
+            "You're currently viewing this page inside " +
+            "Facebook or Messenger." +
+
+            "<br><br>" +
+
+            "Tap the <strong>•••</strong> or " +
+            "<strong>Share</strong> menu, then choose " +
+            "<strong>Open in Safari</strong>.";
+
+        notice.style.display =
+            "block";
+
+        button.href =
+            freshUrl;
+
+        button.style.display =
+            "flex";
+
+        button.textContent =
+            "🌐 Continue in Safari";
+
+    }
+
+
+    /*
+     * =========================================
+     * iPHONE / iPAD NORMAL SAFARI
+     * =========================================
+     */
+
+    else if (isIOS) {
+
+        title.textContent =
+            "PAT Client";
+
+        subtitle.textContent =
+            "You're using a supported browser.";
+
+        spinner.style.display =
+            "none";
+
+        /*
+         * Fresh URL without causing a reload.
+         */
+
+        try {
+
+            const current =
+                new URL(window.location.href);
+
+            current.searchParams.set(
+                "v",
+                random
+            );
+
+            window.history.replaceState(
+                {},
+                "",
+                current.toString()
+            );
+
+        } catch (e) {}
+
+    }
+
+
+    /*
+     * =========================================
+     * ANDROID NORMAL BROWSER
+     * =========================================
+     */
+
+    else if (isAndroid) {
+
+        title.textContent =
+            "PAT Client";
+
+        subtitle.textContent =
+            "You're using a supported browser.";
+
+        spinner.style.display =
+            "none";
+
+        try {
+
+            const current =
+                new URL(window.location.href);
+
+            current.searchParams.set(
+                "v",
+                random
+            );
+
+            window.history.replaceState(
+                {},
+                "",
+                current.toString()
+            );
+
+        } catch (e) {}
+
+    }
+
+
+    /*
+     * =========================================
+     * DESKTOP / OTHER
+     * =========================================
+     */
+
+    else {
+
+        title.textContent =
+            "PAT Client";
+
+        subtitle.textContent =
+            "Please use a mobile browser to continue.";
+
+        spinner.style.display =
+            "none";
+
+    }
+
+})();
+</script>
+
+</body>
+</html>
